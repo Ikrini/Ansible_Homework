@@ -1,0 +1,24 @@
+
+#таким образом можно установить сразу на кучу серверо например apache (or minecrat)
+
+#[staging_servers]
+#Ansib ansible_host=inom1@192.168.56.102 ansible_user=inom ansible_ssh_private_key_file=/home/inom/Desktop/keyansible/id_rsa
+
+
+#[prod_servers]
+#Test0 ansible_host=inom3@192.168.56.105 ansible_user=inom ansible_ssh_private_key_file=/home/inom/Desktop/keytest0/id_rsa
+#Test1 ansible_host=inom4@192.168.56.106 ansible_user=inom ansible_ssh_private_key_file=/home/inom/Desktop/keytest1/id_rsa 
+#More  ansible_host=inom2@192.168.56.101 ansible_ssh_private_key_file=/home/inom/Desktop/keymore/id_rsa
+#Docke ansible_host=inom@192.168.56.104  ansible_ssh_private_key_file=/home/inom/Desktop/keydocker/id_rsa
+ 
+
+[PROD_SERVERS_WEB]
+test0 ansible_host=inom3@192.168.56.105 ansible_ssh_private_key_file=/home/inom/Desktop/keytest0/id_rsa
+test1 ansible_host=inom4@192.168.56.106 ansible_ssh_private_key_file=/home/inom/Desktop/keytest1/id_rsa
+
+
+#описываем общие перменные
+
+#[prod_servers:vars]
+#ansible_user=inom
+

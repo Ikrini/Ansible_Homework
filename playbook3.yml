@@ -1,0 +1,31 @@
+---
+- name: install Apache and Upload my Web Page
+  hosts: all
+  become: yes
+
+#объявление переменных
+  vars:
+    source_file: ./MyWebSite/index.html
+    destin_file: /var/www/html
+
+
+#задача, использование модуля yum
+  tasks:
+  - name: install Apache Web Server
+    yum: name=apache2 state=latest
+   
+#использование модуля copy с передачей в качестве аргументов заранее объявленных  переменных
+  - name: Copy MyHomePage to Servers
+    copy: src={{ source_file }} dest={{ destin_file }} mode=0555
+    notify: Restart Apache                                         
+
+#Старт сервера при запуске
+  - name: Start WebServer and make it enable on boot
+    service: name=apache2 state=started enabled=yes
+
+#В случае изменения файлов указанного выше (in module copy) информация не будет просто сама по себе не обновится (ansible будет загружать предыдущую версию index.html). Чтобы это предотвратить мы 
+#мы делаем reboot после изменений в содержимом index.html
+ 
+  handlers:
+  - name: Restart Apache
+    service: name=apache2 state=restarted
